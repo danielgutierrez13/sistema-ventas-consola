@@ -57,4 +57,14 @@ public class Venta {
   public void setDetalleVenta(DetalleVenta[] detalleVenta) {
     this.detalleVenta = detalleVenta;
   }
+
+  @Override
+  public String toString() {
+    return "{ " + "Código de venta = " + this.codigoVenta + ", Fecha = "
+            + this.fecha + ", Cliente = " + this.cliente
+            + ", Total de venta = " + this.totalVenta
+            + ", Detalle de venta = " + this.detalleVenta + " }";
+  }
+
+
 }

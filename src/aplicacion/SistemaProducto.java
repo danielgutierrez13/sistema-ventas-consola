@@ -8,7 +8,7 @@ public class SistemaProducto {
     private final Utils utils = new Utils();
     private Producto[] productos;
 
-    private void imprimirMenu() {
+    private void imprimirMenuProductos() {
         System.out.println("_____________________________________");
         System.out.println("|\t\t\t\tProductos\t\t\t|");
         System.out.println("|___________________________________|");
@@ -25,7 +25,7 @@ public class SistemaProducto {
         this.productos = productos;
         int opcion;
         do {
-            imprimirMenu();
+            imprimirMenuProductos();
             opcion = utils.pedirOpcionNumero(1,6, "opción del menú de productos");
 
             switch (opcion) {

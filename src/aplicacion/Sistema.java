@@ -2,6 +2,7 @@ package aplicacion;
 
 import negocio.Cliente;
 import negocio.Producto;
+import negocio.Venta;
 import utils.Utils;
 
 public class Sistema {
@@ -9,6 +10,7 @@ public class Sistema {
   private final Utils utils = new Utils();
   private final SistemaCliente sistemaCliente = new SistemaCliente();
   private final SistemaProducto sistemaProducto = new SistemaProducto();
+  private final SistemaVenta sistemaVenta = new SistemaVenta();
 
   private void imprimirMenuSistemaVentas() {
     System.out.println("_____________________________________");
@@ -28,6 +30,7 @@ public class Sistema {
 
     Cliente[] clientes = generarClientes();
     Producto[] productos = generarProductos();
+    Venta[] ventas = new Venta[0];
     do {
       imprimirMenuSistemaVentas();
       opcion = utils.pedirOpcionNumero(1, 9, "opción del menu de sistema de ventas");
@@ -39,7 +42,7 @@ public class Sistema {
           productos = sistemaProducto.ejecutar(productos);
           break;
         case 3:
-          System.out.printf("Opción %d: Ventas\n", opcion);
+          sistemaVenta.ejecutar(ventas);
           break;
         case 4:
           sistemaProducto.listarProductos(productos);
