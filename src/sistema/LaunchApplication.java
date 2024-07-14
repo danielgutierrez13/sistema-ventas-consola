@@ -5,6 +5,7 @@ import aplicacion.Sistema;
 public class LaunchApplication {
 
   public static void main(String[] args) {
-    new Sistema();
+    Sistema ap = new Sistema();
+    ap.ejecutar();
   }
 }

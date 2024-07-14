@@ -8,7 +8,7 @@ public class SistemaCliente {
   private final Utils utils = new Utils();
   private Cliente[] clientes;
 
-  public void imprimirMenuClientes() {
+  private void imprimirMenuClientes() {
     System.out.println("_____________________________________");
     System.out.println("|\t\t\t\tClientes\t\t\t|");
     System.out.println("|___________________________________|");
@@ -65,11 +65,11 @@ public class SistemaCliente {
   private void buscarCliente() {
     System.out.println("___________________________________");
     String dni = utils.pedirPalabra("el dni del cliente a buscar", 8);
-    int index = buscarPosicionCliente(dni);
-    if (index != -1) {
-      System.out.println("Cliente encontrado: " + clientes[index].toString());
+    int posicion = buscarPosicionCliente(dni);
+    if (posicion != -1) {
+      System.out.println("Cliente encontrado: " + clientes[posicion].toString());
     } else {
-      System.out.println("Cliente no encontrado");
+      System.out.println("Cliente no encontrado ...");
     }
     System.out.println("___________________________________");
   }
@@ -77,10 +77,10 @@ public class SistemaCliente {
   private void actualizarCliente() {
     System.out.println("___________________________________");
     String dni = utils.pedirPalabra("el dni del cliente a actualizar", 8);
-    int index = buscarPosicionCliente(dni);
-    if (index != -1) {
+    int posicion = buscarPosicionCliente(dni);
+    if (posicion != -1) {
       Cliente cliente = ingresarDatosCliente();
-      clientes[index] = cliente;
+      clientes[posicion] = cliente;
       System.out.println("Cliente actualizado: " + cliente);
     } else {
       System.out.println("Cliente no encontrado");
@@ -92,14 +92,14 @@ public class SistemaCliente {
     System.out.println("___________________________________");
     Cliente[] clientesAux = clientes.clone();
     String dni = utils.pedirPalabra("el dni del cliente a eliminar", 8);
-    int index = buscarPosicionCliente(dni);
-    if (index != -1) {
-      System.out.println("Cliente eliminado: " + clientes[index].toString());
+    int posicion = buscarPosicionCliente(dni);
+    if (posicion != -1) {
+      System.out.println("Cliente eliminado: " + clientes[posicion].toString());
       clientes = new Cliente[clientesAux.length - 1];
       int contador = 0;
-      for (Cliente cliente : clientesAux) {
-        if (!cliente.getDni().equals(dni)) {
-          clientes[contador] = cliente;
+      for (int i = 0; i < clientesAux.length; i++) {
+        if (!clientesAux[i].getDni().equals(dni)) {
+          clientes[contador] = clientesAux[i];
           contador++;
         }
       }
@@ -111,8 +111,8 @@ public class SistemaCliente {
 
   public void listarCliente() {
     System.out.println("___________________________________");
-    for (Cliente cliente : clientes) {
-      System.out.println(cliente.toString());
+    for (int i = 0; i<clientes.length; i++) {
+      System.out.println(clientes[i].toString());
     }
     System.out.println("___________________________________");
   }
@@ -127,11 +127,13 @@ public class SistemaCliente {
   }
 
   private Cliente ingresarDatosCliente() {
+    Cliente cliente = new Cliente();
     String nombre = utils.pedirPalabra("el nombre del cliente", 100);
+    cliente.setNombres(nombre);
     String apellido = utils.pedirPalabra("el apellido del cliente", 100);
+    cliente.setApellidos(apellido);
     String dni = utils.pedirPalabra("el dni del cliente", 8);
-    String direccion = utils.pedirPalabra("la direccion del cliente", 100);
-    String telefono = utils.pedirPalabra("el telefono del cliente", 15);
-    return new Cliente(dni, nombre, apellido, direccion, telefono);
+    cliente.setDni(dni);
+    return cliente;
   }
 }
