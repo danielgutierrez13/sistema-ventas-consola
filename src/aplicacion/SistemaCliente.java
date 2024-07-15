@@ -32,7 +32,7 @@ public class SistemaCliente {
           ingresarClientes();
           break;
         case 2:
-          buscarCliente();
+          buscarCliente(this.clientes);
           break;
         case 3:
           actualizarCliente();
@@ -41,7 +41,7 @@ public class SistemaCliente {
           eliminarCliente();
           break;
         case 5:
-          listarCliente();
+          listarCliente(this.clientes);
           break;
         default:
           System.out.println("Saliendo del menu de clientes...");
@@ -62,22 +62,27 @@ public class SistemaCliente {
     System.out.println("___________________________________");
   }
 
-  private void buscarCliente() {
+  public Cliente buscarCliente(Cliente[] clientes) {
     System.out.println("___________________________________");
     String dni = utils.pedirPalabra("el dni del cliente a buscar", 8);
-    int posicion = buscarPosicionCliente(dni);
+    int posicion = buscarPosicionCliente(dni, clientes);
     if (posicion != -1) {
       System.out.println("Cliente encontrado: " + clientes[posicion].toString());
     } else {
       System.out.println("Cliente no encontrado ...");
     }
     System.out.println("___________________________________");
+    if (posicion != -1) {
+      return clientes[posicion];
+    } else {
+      return null;
+    }
   }
 
   private void actualizarCliente() {
     System.out.println("___________________________________");
     String dni = utils.pedirPalabra("el dni del cliente a actualizar", 8);
-    int posicion = buscarPosicionCliente(dni);
+    int posicion = buscarPosicionCliente(dni, this.clientes);
     if (posicion != -1) {
       Cliente cliente = ingresarDatosCliente();
       clientes[posicion] = cliente;
@@ -92,7 +97,7 @@ public class SistemaCliente {
     System.out.println("___________________________________");
     Cliente[] clientesAux = clientes.clone();
     String dni = utils.pedirPalabra("el dni del cliente a eliminar", 8);
-    int posicion = buscarPosicionCliente(dni);
+    int posicion = buscarPosicionCliente(dni, this.clientes);
     if (posicion != -1) {
       System.out.println("Cliente eliminado: " + clientes[posicion].toString());
       clientes = new Cliente[clientesAux.length - 1];
@@ -109,7 +114,7 @@ public class SistemaCliente {
     System.out.println("___________________________________");
   }
 
-  public void listarCliente() {
+  public void listarCliente(Cliente[] clientes) {
     System.out.println("___________________________________");
     for (int i = 0; i<clientes.length; i++) {
       System.out.println(clientes[i].toString());
@@ -117,7 +122,7 @@ public class SistemaCliente {
     System.out.println("___________________________________");
   }
 
-  private int buscarPosicionCliente(String dni) {
+  private int buscarPosicionCliente(String dni, Cliente[] clientes) {
     for (int i = 0; i < clientes.length; i++) {
       if (clientes[i].getDni().equals(dni)) {
         return i;

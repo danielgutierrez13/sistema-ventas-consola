@@ -42,7 +42,9 @@ public class Sistema {
           productos = sistemaProducto.ejecutar(productos);
           break;
         case 3:
-          sistemaVenta.ejecutar(ventas);
+          Object[] aux = sistemaVenta.ejecutar(ventas, productos, clientes);
+          ventas = (Venta[]) aux[0];
+          productos = (Producto[]) aux[1];
           break;
         case 4:
           sistemaProducto.listarProductos(productos);

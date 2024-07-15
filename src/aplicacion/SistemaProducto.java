@@ -33,7 +33,7 @@ public class SistemaProducto {
                     ingresarProducto();
                     break;
                 case 2:
-                    buscarProducto();
+                    buscarProducto(this.productos);
                     break;
                 case 3:
                     actualizarProducto();
@@ -78,19 +78,24 @@ public class SistemaProducto {
         return producto;
     }
 
-    private void buscarProducto() {
+    public Producto buscarProducto(Producto[] productos) {
         System.out.println("___________________________________");
         String codigo = utils.pedirPalabra("codigo del producto a buscar", 100);
-        int posicion = buscarPosicionProducto(codigo);
+        int posicion = buscarPosicionProducto(productos, codigo);
         if (posicion != -1) {
             System.out.println("Producto encontrado: " + productos[posicion].toString());
         } else {
             System.out.println("Producto no encontrado ...");
         }
         System.out.println("___________________________________");
+        if (posicion != -1) {
+            return productos[posicion];
+        } else {
+            return null;
+        }
     }
 
-    private int buscarPosicionProducto(String codigo) {
+    public int buscarPosicionProducto(Producto[] productos, String codigo) {
         for (int i = 0; i<productos.length; i++) {
             if (productos[i].getCodigo().equals(codigo)) {
                 return i;
@@ -102,7 +107,7 @@ public class SistemaProducto {
    private void actualizarProducto() {
        System.out.println("___________________________________");
        String codigo = utils.pedirPalabra("código del producto a actualizar", 4);
-       int posicion = buscarPosicionProducto(codigo);
+       int posicion = buscarPosicionProducto(this.productos, codigo);
        if (posicion != -1) {
            Producto producto = ingresarDatosProducto();
            productos[posicion] = producto;
@@ -117,7 +122,7 @@ public class SistemaProducto {
        System.out.println("___________________________________");
        Producto[] productosAux = productos.clone();
        String codigo = utils.pedirPalabra("codigo del producto a eliminar", 4);
-       int posicion = buscarPosicionProducto(codigo);
+       int posicion = buscarPosicionProducto(this.productos, codigo);
        if (posicion != -1) {
            System.out.println("Producto eliminado: " + productos[posicion].toString());
            productos = new Producto[productosAux.length - 1];

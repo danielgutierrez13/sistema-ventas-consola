@@ -60,11 +60,20 @@ public class Venta {
 
   @Override
   public String toString() {
+    String detalle = "";
+    for (int i = 0; i < this.detalleVenta.length; i++) {
+      detalle += this.detalleVenta[i].toString() + "\n";
+    }
     return "{ " + "Código de venta = " + this.codigoVenta + ", Fecha = "
             + this.fecha + ", Cliente = " + this.cliente
-            + ", Total de venta = " + this.totalVenta
-            + ", Detalle de venta = " + this.detalleVenta + " }";
+            + ", Total de venta = " + this.totalVenta + ", Detalle de venta = " + detalle + " }";
   }
 
-
+  public void calcularTotalVenta() {
+    double total = 0;
+    for (int i = 0; i < this.detalleVenta.length; i++) {
+      total += detalleVenta[i].getPrecio();
+    }
+    this.totalVenta = total;
+  }
 }
